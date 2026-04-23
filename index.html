@@ -300,7 +300,6 @@
             opacity: 0.7;
         }
 /* About Page */
-/* About Page */
 .about {
     padding: 200px 50px 80px;
     max-width: 75%;
@@ -361,34 +360,8 @@
     background: rgb(0, 0, 0);
     color: white
 }
-        /* About Page 
-        .about {
-            padding: 85px 20px 80px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .about-image {
-            width: 300px;
-            height: 300px;
-            border-radius: 0%;
-            object-fit: cover;
-            display: block;
-            margin: 0 auto 40px;
-            background: #f0f0f0;
-        }
-
-        .artist-statement {
-            line-height: 1.8;
-            color: #333;
-            font-size: 16px;
-        }
-
-    
-
 
         /* Gallery Pages */
- /* Gallery Pages */
 .gallery {
     padding: 90px 0px 30px;
 }
@@ -850,7 +823,6 @@
             border: none;
             cursor: pointer;
             font-size: 12px;
-          /*  font-style: italic; */
             transition: opacity 0.3s ease;
             padding: 0;
                 text-decoration: underline;
@@ -1094,38 +1066,84 @@
             display: block; width: 22px; height: 1.5px; background: black;
         }
 
-        /* Mobile back button for design detail */
+        /* Mobile back button for design detail - replaced with X close button */
         .mobile-back-btn {
             display: none;
-            position: fixed;
-            top: 68px;
-            left: 16px;
-            font-size: 12px;
-            text-decoration: underline;
-            cursor: pointer;
-            z-index: 150;
-            background: white;
-            padding: 4px 0;
         }
 
-        /* Mobile modal circle nav buttons */
-        .modal-circle-nav {
+        /* Mobile X close button for modals and detail pages */
+        .mobile-close-x {
             display: none;
             position: fixed;
-            bottom: 30px;
-            width: 64px; height: 64px;
-            border-radius: 50%;
-            border: 2px solid black;
-            background: white;
-            font-size: 12px;
-            font-weight: 500;
+            top: 14px;
+            right: 16px;
+            font-size: 28px;
+            font-weight: 300;
+            line-height: 1;
+            color: black;
+            background: none;
+            border: none;
             cursor: pointer;
-            z-index: 1100;
-            align-items: center;
-            justify-content: center;
+            z-index: 300;
+            padding: 4px;
         }
-        .modal-circle-prev { left: 24px; }
-        .modal-circle-next { right: 24px; }
+
+        /* Mobile bottom nav buttons for gallery/design modals */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid #eee;
+            padding: 16px 24px;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1100;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .mobile-bottom-nav.visible {
+            transform: translateY(0);
+        }
+        .mobile-bottom-nav-btn {
+            background: transparent;
+            color: black;
+            border: none;
+            font-size: 14px;
+            font-family: "owners-text", sans-serif;
+            font-weight: 400;
+            cursor: pointer;
+            padding: 8px 0;
+            text-decoration: underline;
+        }
+        .mobile-bottom-nav-spacer {
+            font-size: 14px;
+            color: #999;
+        }
+
+        /* Modal mobile close X - overlaid on white modal */
+        .modal-mobile-close-x {
+            display: none;
+            position: fixed;
+            top: 14px;
+            right: 16px;
+            font-size: 28px;
+            font-weight: 300;
+            line-height: 1;
+            color: black;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1200;
+        }
+
+        /* Mobile modal circle nav buttons - replaced by bottom nav */
+        .modal-circle-nav {
+            display: none;
+        }
 
         @media (max-width: 768px) {
 
@@ -1145,8 +1163,10 @@
             /* Hide desktop nav, show mobile header */
             .nav-bar { display: none !important; }
             .mobile-menu-panel { display: flex; }
-            .mobile-header { display: flex; }
-            .mobile-back-btn { display: block; }
+            /* mobile-header shown/hidden via JS based on page */
+            .mobile-close-x { display: block; }
+            .modal-mobile-close-x { display: block; }
+            .mobile-bottom-nav { display: flex; }
 
             /* ---- LANDING PAGE ---- */
             .landing {
@@ -1175,9 +1195,7 @@
                 width: 100%;
                 height: calc(100vh - 60px - 160px);
             }
-            /* +30% from previous 260px */
             .venn-container { width: 338px; height: 338px; }
-            /* +30% from previous 130px */
             .circle { width: 169px; height: 169px; font-size: 13px; }
             .ceramics { top: 8px; left: 18px; }
             .printmaking { top: 8px; right: 18px; }
@@ -1195,36 +1213,6 @@
             }
             .side-circle { width: 80px; height: 80px; font-size: 12px; }
 
-            /* Right-side overlapping nav circles (shown on inner pages) */
-            .mobile-nav-circles {
-                position: fixed;
-                right: -28px;
-                top: 50%;
-                transform: translateY(-50%);
-                display: flex;
-                flex-direction: column;
-                gap: -20px;
-                z-index: 300;
-            }
-            .mobile-nav-circle {
-                width: 70px; height: 70px;
-                border-radius: 50%;
-                opacity: 0.5;
-                display: flex; align-items: center; justify-content: center;
-                font-size: 10px; font-weight: 500;
-                cursor: pointer;
-                margin-bottom: -28px; /* 80% overlap */
-                transition: opacity 0.2s;
-                color: #333;
-            }
-            .mobile-nav-circle:last-child { margin-bottom: 0; }
-            .mobile-nav-circle:active { opacity: 0.8; }
-            .mnc-ceramics  { background: rgba(0,174,239,0.5); }
-            .mnc-printmaking { background: rgba(236,0,140,0.5); }
-            .mnc-design    { background: rgba(255,242,0,0.5); }
-            .mnc-about     { background: rgba(255,255,255,0.5); border: 2px solid black; }
-            .mnc-cv        { background: rgba(0,0,0,0.5); color: white; }
-
             /* ---- ABOUT PAGE ---- */
             .about { padding: 72px 20px 100px; max-width: 100%; }
             .about.visible { flex-direction: column !important; }
@@ -1232,7 +1220,7 @@
 
             /* ---- CERAMICS: single scrolling page ---- */
             .ceramics-series { flex-direction: column; padding: 72px 16px 100px; }
-            .ceramics-series-nav { display: none; } /* hidden — all in one page on mobile */
+            .ceramics-series-nav { display: none; }
             .ceramics-series-content { width: 100%; max-width: 100%; margin-left: 0; }
             .gallery-grid-ceramics { column-count: 2; column-gap: 12px; padding: 0; }
             .mobile-ceramics-section-title {
@@ -1240,7 +1228,8 @@
                 font-size: 13px; font-weight: 500;
                 padding: 20px 0 10px;
                 letter-spacing: 0.04em;
-                color: rgba(0,174,239,1);
+                /* BLACK text for ceramics section titles */
+                color: #000;
                 break-before: column;
                 width: 100%;
                 column-span: all;
@@ -1262,22 +1251,16 @@
                 padding: 0;
                 overflow-y: auto;
             }
-            .modal-close {
-                color: black;
-                font-size: 22px;
-                top: 14px; right: 16px;
-                font-weight: 300;
-            }
-            /* Replace "Close" text with × */
-            .modal-close { font-size: 0; }
-            .modal-close::after { content: '×'; font-size: 28px; color: black; }
+            /* Hide the dark-bg modal close on mobile - replaced by X */
+            .modal-close { display: none; }
 
             /* Desktop side arrows hidden on mobile */
             .modal-nav { display: none; }
 
             .modal-content {
                 width: 100%;
-                padding: 56px 16px 120px;
+                /* Extra bottom padding for the bottom nav bar */
+                padding: 56px 16px 100px;
                 align-items: flex-start;
                 max-height: none;
                 padding-top: 0;
@@ -1291,6 +1274,7 @@
                 order: -1;
                 padding: 16px 0 0 0;
             }
+            /* All modal text black */
             .modal-title { color: black; font-size: 14px; }
             .modal-details { color: #555; font-size: 12px; }
 
@@ -1314,15 +1298,12 @@
                 opacity: 1;
             }
 
-            /* Circle nav buttons at bottom of modal */
-            .modal-circle-nav { display: flex; }
-
             /* ---- DESIGN OVERVIEW: single scroll ---- */
             .design-overview {
                 flex-direction: column;
                 padding: 72px 16px 80px;
             }
-            .design-nav { display: none; } /* hide side project list */
+            .design-nav { display: none; }
             .design-content { margin-left: 0; width: 100%; }
             .design-grid {
                 display: flex;
@@ -1335,10 +1316,10 @@
             }
             .design-project-name { padding: 8px 0 20px; font-size: 14px; }
 
-            /* ---- DESIGN DETAIL: info on top, images below ---- */
+            /* ---- DESIGN DETAIL: info on top, carousel, then tags/link/nav ---- */
             .design-detail {
                 flex-direction: column;
-                padding: 100px 16px 140px 16px;
+                padding: 56px 16px 120px 16px;
                 gap: 0;
             }
             /* Nav panel on design detail hidden */
@@ -1351,17 +1332,28 @@
                 padding-left: 0;
                 margin-bottom: 20px;
                 overflow-y: visible;
+                /* Show on mobile — info first */
+                order: 1;
             }
             .design-detail-images {
                 max-height: none;
                 overflow-y: visible;
                 padding-right: 0;
                 width: 100%;
+                /* Images after info */
+                order: 2;
             }
             /* Hide desktop prev/next text buttons in detail */
             .design-project-nav { display: none; }
             /* Scroll circle indicator hidden on mobile */
             .scroll-circle { display: none; }
+
+            /* Mobile design detail: extra sections shown at bottom */
+            .mobile-design-bottom {
+                order: 3;
+                width: 100%;
+                padding-bottom: 20px;
+            }
 
             /* ---- CV ---- */
             .cv-series { flex-direction: column; padding: 72px 16px 80px; }
@@ -1381,6 +1373,12 @@
             .design-tag-header { position: relative; left: auto; top: auto; margin-bottom: 12px; }
             .design-back-button { position: relative; left: auto; top: auto; margin-bottom: 20px; display: block; }
             .design-tag-content { margin-left: 0; width: 100%; }
+
+            /* Mobile detail title: no prev/next inline */
+            .design-detail-title {
+                margin-top: 16px;
+                margin-bottom: 12px;
+            }
         }
 
         .landing.visible ~ .footer {
@@ -1426,13 +1424,16 @@
         </div>
     </nav>
 
-    <!-- Mobile Header (name + hamburger) -->
-    <header class="mobile-header" id="mobile-header">
+    <!-- Mobile Header (name + hamburger) — hidden until leaving landing -->
+    <header class="mobile-header" id="mobile-header" style="display:none;">
         <span class="mobile-header-name" onclick="navigateToLanding()">Marija Astrauskaite</span>
         <button class="mobile-hamburger" id="mobile-hamburger" onclick="openMobileMenu()" aria-label="Menu">
             <span></span><span></span><span></span>
         </button>
     </header>
+
+    <!-- Mobile X close button (for design detail pages) -->
+    <button class="mobile-close-x" id="mobile-close-x" style="display:none;" onclick="handleMobileClose()">×</button>
 
     <!-- Mobile slide-in menu -->
     <div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
@@ -1460,21 +1461,14 @@
         </div>
     </div>
 
-    <!-- Mobile right-side overlapping nav circles (shown on inner pages) -->
-    <div class="mobile-nav-circles" id="mobile-nav-circles" style="display:none">
-        <div class="mobile-nav-circle mnc-ceramics"  onclick="navigate('ceramics')">Ceramics</div>
-        <div class="mobile-nav-circle mnc-printmaking" onclick="navigate('printmaking')">Printing</div>
-        <div class="mobile-nav-circle mnc-design"    onclick="navigate('design')">Design</div>
-        <div class="mobile-nav-circle mnc-about"     onclick="navigate('about')">About</div>
-        <div class="mobile-nav-circle mnc-cv"        onclick="navigate('cv')">CV</div>
+    <!-- Mobile modal X close button (white modal) -->
+    <button class="modal-mobile-close-x" id="modal-mobile-close-x" style="display:none;" onclick="closeModal()">×</button>
+
+    <!-- Mobile bottom navigation bar (prev/next) — shown when scrolled to bottom -->
+    <div class="mobile-bottom-nav" id="mobile-bottom-nav">
+        <button class="mobile-bottom-nav-btn" id="mobile-nav-prev" onclick="mobileNavPrev()">← Previous</button>
+        <button class="mobile-bottom-nav-btn" id="mobile-nav-next" onclick="mobileNavNext()">Next →</button>
     </div>
-
-    <!-- Mobile back button for design detail -->
-    <div class="mobile-back-btn" id="mobile-back-btn" style="display:none" onclick="navigate('design')">← Back</div>
-
-    <!-- Mobile modal circle nav buttons -->
-    <button class="modal-circle-nav modal-circle-prev" id="modal-circle-prev" onclick="navigateModal(-1)">Back</button>
-    <button class="modal-circle-nav modal-circle-next" id="modal-circle-next" onclick="navigateModal(1)">Next</button>
 
     <!-- Landing Page -->
     <div class="page landing visible" id="landing">
@@ -1501,6 +1495,7 @@
             </div>
         </div>
     </div>
+
 <!-- About Page -->
 <div class="page about hidden" id="about">
     <img src="https://imgur.com/HRiXxYX.jpeg" alt="Artist Photo" class="about-image">
@@ -1725,7 +1720,62 @@
                 hdr.classList.remove('hide-on-scroll');
             }
             lastScrollY = y;
+
+            // Show bottom nav when near bottom of page
+            checkBottomNavVisibility();
         }, { passive: true });
+
+        // ---- Bottom nav scroll reveal ----
+        // Context for what the bottom nav controls
+        let mobileNavContext = null; // 'modal' | 'design-detail' | null
+
+        function checkBottomNavVisibility() {
+            if (!isMobile()) return;
+            if (!mobileNavContext) return;
+
+            const bottomNav = document.getElementById('mobile-bottom-nav');
+            const scrollBottom = window.scrollY + window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            // Show when within 150px of bottom
+            if (scrollBottom >= docHeight - 150) {
+                bottomNav.classList.add('visible');
+            } else {
+                bottomNav.classList.remove('visible');
+            }
+        }
+
+        function showBottomNav(context) {
+            mobileNavContext = context;
+            // Don't show immediately — wait for scroll to bottom
+            document.getElementById('mobile-bottom-nav').classList.remove('visible');
+        }
+
+        function hideBottomNav() {
+            mobileNavContext = null;
+            document.getElementById('mobile-bottom-nav').classList.remove('visible');
+        }
+
+        function mobileNavPrev() {
+            if (mobileNavContext === 'modal') {
+                navigateModal(-1);
+            } else if (mobileNavContext === 'design-detail') {
+                navigateToAdjacentProject(currentProjectId, -1);
+            }
+        }
+
+        function mobileNavNext() {
+            if (mobileNavContext === 'modal') {
+                navigateModal(1);
+            } else if (mobileNavContext === 'design-detail') {
+                navigateToAdjacentProject(currentProjectId, 1);
+            }
+        }
+
+        // ---- Mobile close X handler ----
+        function handleMobileClose() {
+            // Close X on design detail → go back to design overview
+            navigate('design');
+        }
 
         // Ceramics data
         const ceramicsSeries1Data = [
@@ -1764,37 +1814,23 @@
               
                              { title: "Untitled", date: "2022", clay: "Stoneware with White Engobe",  images: ["https://imgur.com/JjDpcTP.jpeg", "https://imgur.com/dQ2E8f8.jpeg", "https://imgur.com/srXTPZN.jpeg"] },
                  { title: "Untitled", date: "2022", clay: "Stoneware with White Engobe",  images: ["https://imgur.com/1PTF8rW.jpeg", "https://imgur.com/qaUAEQD.jpeg", ] },
-                               /*   { title: "Untitled", date: "2022", clay: "Porcelain", dimensions: " in x in x in", images: [".jpeg", ".jpeg", "jpeg", ".jpeg"] }, */
-
-
-               
     ];
-        const ceramicsSeries3Data = [
-                                           /*   { title: "Untitled", date: "2022", clay: "Porcelain", dimensions: " in x in x in", images: [".jpeg", ".jpeg", "jpeg", ".jpeg"] }, */
 
+        const ceramicsSeries3Data = [
                                  {  title: "Untitled", date: "2022", clay: "Stoneware",  images: ["https://imgur.com/duBwgNU.jpeg", "https://imgur.com/Q011IKK.jpeg"] }, 
                                      {  title: "Untitled",date: "2021", clay: "Stoneware",  images: ["https://imgur.com/AZNcFPy.jpeg", "https://imgur.com/W9wluDK.jpeg"] }, 
                                        { title: "Untitled", date: "2021", clay: "Stoneware",  images: ["https://imgur.com/uXuB3G4.jpeg", "https://imgur.com/4l1NXtq.jpeg"] }, 
                                                                                {title: "Untitled",  date: "2022", clay: "Stoneware", images: ["https://imgur.com/KiOE9HD.jpeg", "https://imgur.com/Ob4yGuC.jpeg", "https://imgur.com/b9zaUvq.jpeg"] }, 
                 { title: "Untitled", date: "2022", clay: "Stoneware", images: ["https://imgur.com/3mV3xW0.jpeg", "https://imgur.com/3j6HAQk.jpeg"] }, 
-
                                        {  title: "Untitled",date: "2022", clay: "Stoneware", images: ["https://imgur.com/EVGezsq.jpeg", "https://imgur.com/7nS7zpj.jpeg"] }, 
-
-
-
                                  {title: "Untitled", date: "2021", clay: "Stoneware",  images: ["https://imgur.com/fNQ2jBc.jpeg", "https://imgur.com/oSuJYj2.jpeg"] }, 
                                     {title: "Untitled", date: "2021", clay: "Stoneware",  images: ["https://imgur.com/CVk8sVb.jpeg", "https://imgur.com/CG72T8D.jpeg", "https://imgur.com/CwLBiw9.jpeg"] }, 
-
                                  {title: "Untitled", date: "2022", clay: "Stoneware",  images: ["https://imgur.com/02EeQM0.jpeg", "https://imgur.com/MyZ8ouy.jpeg"] }, 
                                           {title: "Untitled",  date: "2021", clay: "Stoneware",  images: ["https://imgur.com/MYLutXY.jpeg", "https://imgur.com/rz338xA.jpeg", "https://imgur.com/KAywAKZ.jpeg"] }, 
                                                                          {title: "Untitled",  date: "2023", clay: "Porcelain", images: ["https://imgur.com/2zrMJ49.jpeg", "https://imgur.com/QLZrLBH.jpeg", "https://imgur.com/ThRX4Lw.jpeg"] }, 
-
                                           { title: "Untitled", date: "2022", clay: "Stoneware with White Engobe",  images: ["https://imgur.com/G9fOKVz.jpeg", "https://imgur.com/NnvbmH0.jpeg"] }, 
                                           { title: "Untitled", date: "2022", clay: "Porcelain",  images: ["https://imgur.com/qEsWVdW.jpeg", "https://imgur.com/gWV1QFZ.jpeg"] }, 
                                    {title: "Untitled", date: "2021", clay: "Stoneware",  images: [ "https://imgur.com/0dJue8c.jpeg","https://imgur.com/hu2VSZ7.jpeg"] }, 
-
-
-    
     ];
 
         // Printmaking data
@@ -1817,7 +1853,6 @@
                 name: "Migration Wall System",
                 thumbnail: "https://imgur.com/DmS2mrN.jpeg",
                 images: ["https://via.placeholder.com/800x600", "https://via.placeholder.com/800x600", "https://via.placeholder.com/800x600"],
-                
                 description: "This is a detailed description of Project 1. Replace this with your actual project description explaining the concept, process, and outcomes.",
                 pdfUrl: "https://yourpdflink.com/project1.pdf",
                 tags: ["space", "research", "object"]
@@ -1835,7 +1870,7 @@
                 id: "project3",
                 name: "Eggshell Book",
                 thumbnail: "https://via.placeholder.com/400",
-                images: ["https://imgur.com/KklnLya.jpeg", "https://imgur.com/31qjxYA.jpeg",  "https://imgur.com/WxJoc44.jpeg", "https://imgur.com/xh6cb4x.jpeg", "https://imgur.com/GNVnJeX.jpeg", "https://imgur.com/83ZPWFA.jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg", ".jpeg",],
+                images: ["https://imgur.com/KklnLya.jpeg", "https://imgur.com/31qjxYA.jpeg",  "https://imgur.com/WxJoc44.jpeg", "https://imgur.com/xh6cb4x.jpeg", "https://imgur.com/GNVnJeX.jpeg", "https://imgur.com/83ZPWFA.jpeg"],
                 tags: ["casted", "object"],
                 description: "This is a detailed description of Project 3.",
                 pdfUrl: "https://yourpdflink.com/project3.pdf"
@@ -1853,7 +1888,7 @@
                 id: "project5",
                 name: "Bungee Lamp",
                 thumbnail: "https://imgur.com/hYysIEw.jpeg",
-                images: ["https://imgur.com/x8zwSk4.jpeg","https://imgur.com/hYysIEw.jpeg",  "https://imgur.com/k2V8xAd.jpeg", "https://imgur.com/2h9K5aQ.jpeg", "https://imgur.com/i3fzJhZ.jpeg", "https://imgur.com/75wo3yt.jpeg", "https://imgur.com/vXr5cf8.jpeg", ],
+                images: ["https://imgur.com/x8zwSk4.jpeg","https://imgur.com/hYysIEw.jpeg",  "https://imgur.com/k2V8xAd.jpeg", "https://imgur.com/2h9K5aQ.jpeg", "https://imgur.com/i3fzJhZ.jpeg", "https://imgur.com/75wo3yt.jpeg", "https://imgur.com/vXr5cf8.jpeg"],
                 tags: ["space", "furniture"],
                 description: "This is a detailed description of Project 5.",
                 pdfUrl: "https://yourpdflink.com/project5.pdf"
@@ -1862,7 +1897,7 @@
                 id: "project6",
                 name: "Squish Me",
                 thumbnail: "https://imgur.com/ELrL9nR.jpeg",
-                images: ["https://imgur.com/Rolvvho.jpeg","https://imgur.com/moJBmEu.jpeg",  "https://imgur.com/2rFpHUA.jpeg", "https://imgur.com/mzjU6d1.jpeg","https://imgur.com/tFh9VpT.jpeg", "https://imgur.com/OFIFGtC.jpeg",],
+                images: ["https://imgur.com/Rolvvho.jpeg","https://imgur.com/moJBmEu.jpeg",  "https://imgur.com/2rFpHUA.jpeg", "https://imgur.com/mzjU6d1.jpeg","https://imgur.com/tFh9VpT.jpeg", "https://imgur.com/OFIFGtC.jpeg"],
                 tags: ["3d printed", "object"],
                 description: "This is a detailed description of Project 6.",
                 pdfUrl: "https://yourpdflink.com/project6.pdf"
@@ -1878,7 +1913,7 @@
             },
             {
                 id: "project8",
-                name: "Project Nae 8",
+                name: "Project Name 8",
                 thumbnail: "https://via.placeholder.com/400",
                 images: ["https://via.placeholder.com/800x600", "https://imgur.com/cadsE5f.jpeg", "https://via.placeholder.com/800x600"],
                 tags: ["research", "space"],
@@ -1889,14 +1924,14 @@
                 id: "project9",
                 name: "All Terrain Casio Headphones",
                 thumbnail: "https://imgur.com/7cL7V79.jpeg",
-                images: ["https://imgur.com/C0x6gBm.jpeg", "https://imgur.com/pq5U8QU.jpeg", ,"https://imgur.com/JEasK5X.jpeg","https://imgur.com/3rGnMdu.jpeg", "https://imgur.com/m4g1yyU.jpeg", "https://imgur.com/gsqhVS4.jpeg"],
+                images: ["https://imgur.com/C0x6gBm.jpeg", "https://imgur.com/pq5U8QU.jpeg", "https://imgur.com/JEasK5X.jpeg","https://imgur.com/3rGnMdu.jpeg", "https://imgur.com/m4g1yyU.jpeg", "https://imgur.com/gsqhVS4.jpeg"],
                 tags: ["furniture", "3d printed"],
                 description: "This is a detailed description of Project 9.",
                 pdfUrl: "https://yourpdflink.com/project9.pdf"
             },
             {
                 id: "project10",
-                name: "Prject Name 10",
+                name: "Project Name 10",
                 thumbnail: "https://via.placeholder.com/400",
                 images: ["https://via.placeholder.com/800x600", "https://via.placeholder.com/800x600"],
                 tags: ["object", "casted"],
@@ -1905,7 +1940,7 @@
             },
             {
                 id: "project11",
-                name: "Projet Name 11",
+                name: "Project Name 11",
                 thumbnail: "https://via.placeholder.com/400",
                 images: ["https://via.placeholder.com/800x600"],
                 tags: ["bio material", "research"],
@@ -1914,7 +1949,7 @@
             },
             {
                 id: "project12",
-                name: "Projct Name 12",
+                name: "Project Name 12",
                 thumbnail: "https://via.placeholder.com/400",
                 images: ["https://via.placeholder.com/800x600", "https://via.placeholder.com/800x600", "https://via.placeholder.com/800x600"],
                 tags: ["space", "furniture", "3d printed"],
@@ -1926,16 +1961,15 @@
         // Track current filter state
         let currentDesignFilter = 'all';
         let currentProjectId = null;
+        let previousPage = null;
 
         // Initialize design navigation and grid
         function initializeDesign() {
-            // Get all unique tags
             const allTags = new Set();
             designProjects.forEach(project => {
                 project.tags.forEach(tag => allTags.add(tag));
             });
 
-            // Build navigation with project names
             const designNav = document.getElementById('design-nav');
             designProjects.forEach(project => {
                 const navItem = document.createElement('div');
@@ -1945,13 +1979,8 @@
                 designNav.appendChild(navItem);
             });
 
-            // Build the grid
             renderDesignGrid();
-
-            // Create project detail pages
             designProjects.forEach(project => createDesignDetailPage(project));
-
-            // Create tag filter pages
             allTags.forEach(tag => createTagFilterPage(tag));
         }
 
@@ -1974,7 +2003,6 @@
                 grid.appendChild(card);
             });
 
-            // Update active state in nav
             document.querySelectorAll('.design-nav-item').forEach(item => {
                 item.classList.remove('active');
             });
@@ -1986,20 +2014,17 @@
             renderDesignGrid(tag);
         }
 
-        // NEW: Create tag filter page
         function createTagFilterPage(tag) {
             const page = document.createElement('div');
             page.className = 'page design-tag-view hidden';
             page.id = `design-tag-${tag}`;
 
-            // Header with tag name
             const header = document.createElement('div');
             header.className = 'design-tag-header';
             header.textContent = tag;
             page.appendChild(header);
 
-            // Back button
-      const backBtn = document.createElement('div');
+            const backBtn = document.createElement('div');
             backBtn.className = 'design-back-button';
             backBtn.textContent = 'Back';
             backBtn.onclick = () => {
@@ -2012,7 +2037,6 @@
             };
             page.appendChild(backBtn);
 
-            // Content area with filtered projects
             const content = document.createElement('div');
             content.className = 'design-tag-content';
             
@@ -2043,7 +2067,7 @@
             page.className = 'page design-detail hidden';
             page.id = `design-${project.id}`;
 
-            // Create navigation
+            // Desktop nav
             const nav = document.createElement('div');
             nav.className = 'design-nav';
             nav.style.position = 'fixed';
@@ -2051,7 +2075,6 @@
             nav.style.top = '90px';
             nav.style.width = '200px';
 
-            // Add "All" item
             const allItem = document.createElement('div');
             allItem.className = 'design-nav-item';
             allItem.textContent = 'All';
@@ -2061,7 +2084,6 @@
             };
             nav.appendChild(allItem);
 
-            // Add all project names
             designProjects.forEach(p => {
                 const navItem = document.createElement('div');
                 navItem.className = 'design-nav-item';
@@ -2073,16 +2095,13 @@
 
             page.appendChild(nav);
 
-            // NEW: Add navigation buttons
-    // NEW: Add navigation buttons
-            
-            // Create content area
+            // Content wrapper
             const content = document.createElement('div');
             content.style.marginLeft = '240px';
             content.style.display = 'flex';
             content.style.gap = '0';
 
-            // Left side - scrollable images
+            // ---- DESKTOP: images left, info right ----
             const imagesDiv = document.createElement('div');
             imagesDiv.className = 'design-detail-images';
             project.images.forEach(imgSrc => {
@@ -2092,7 +2111,6 @@
                 imagesDiv.appendChild(img);
             });
 
-            // Add scroll circle indicator
             const scrollCircle = document.createElement('div');
             scrollCircle.className = 'scroll-circle';
             page.appendChild(scrollCircle);
@@ -2102,7 +2120,6 @@
                 const containerTop = imagesDiv.getBoundingClientRect().top;
                 const containerHeight = imagesDiv.clientHeight;
                 const circlePosition = containerTop + (containerHeight - 50) * scrollPercentage;
-                
                 scrollCircle.style.top = circlePosition + 'px';
                 scrollCircle.classList.add('active');
             });
@@ -2111,15 +2128,10 @@
                 scrollCircle.classList.remove('active');
             });
 
-            content.appendChild(imagesDiv);
-
-            // Right side - fixed info
+            // Info panel
             const infoDiv = document.createElement('div');
             infoDiv.className = 'design-detail-info';
 
-           
-
-           // Title with navigation buttons
             const titleContainer = document.createElement('div');
             titleContainer.className = 'design-detail-title';
             
@@ -2152,21 +2164,18 @@
             titleContainer.appendChild(navButtons);
             infoDiv.appendChild(titleContainer);
 
-            // Description
             const description = document.createElement('div');
             description.className = 'design-description';
             description.textContent = project.description;
             infoDiv.appendChild(description);
 
-            
-            // PDF link
             const pdfLink = document.createElement('div');
             pdfLink.className = 'design-pdf-link';
             pdfLink.textContent = 'Click here to view slide deck';
             pdfLink.onclick = () => window.open(project.pdfUrl, '_blank');
             infoDiv.appendChild(pdfLink);
             
-              const tagsDiv = document.createElement('div');
+            const tagsDiv = document.createElement('div');
             tagsDiv.className = 'design-tags';
             project.tags.forEach(tag => {
                 const tagElem = document.createElement('div');
@@ -2177,13 +2186,57 @@
             });
             infoDiv.appendChild(tagsDiv);
 
+            // Desktop: images | info
+            content.appendChild(imagesDiv);
             content.appendChild(infoDiv);
             page.appendChild(content);
+
+            // ---- MOBILE: separate layout injected after content ----
+            // On mobile, CSS orders: info (order:1) → images (order:2)
+            // But we also need tags/pdf/nav at the bottom (order:3)
+            // We handle this by building a mobile-only bottom section
+            const mobileBottom = document.createElement('div');
+            mobileBottom.className = 'mobile-design-bottom';
+            mobileBottom.style.display = 'none'; // shown via JS on mobile
+
+            // Mobile-only: carousel (horizontal scroll) of project images
+            const mobileCarousel = document.createElement('div');
+            mobileCarousel.style.cssText = 'display:flex;gap:10px;overflow-x:auto;padding:12px 0;-webkit-overflow-scrolling:touch;scrollbar-width:none;';
+            project.images.forEach(imgSrc => {
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.alt = project.name;
+                img.style.cssText = 'width:85vw;flex-shrink:0;height:auto;object-fit:contain;';
+                mobileCarousel.appendChild(img);
+            });
+            mobileBottom.appendChild(mobileCarousel);
+
+            // Mobile tags
+            const mobileTagsDiv = document.createElement('div');
+            mobileTagsDiv.className = 'design-tags';
+            mobileTagsDiv.style.marginTop = '20px';
+            project.tags.forEach(tag => {
+                const tagElem = document.createElement('div');
+                tagElem.className = 'design-tag';
+                tagElem.textContent = tag;
+                tagElem.onclick = () => filterByTag(tag);
+                mobileTagsDiv.appendChild(tagElem);
+            });
+            mobileBottom.appendChild(mobileTagsDiv);
+
+            // Mobile PDF link
+            const mobilePdf = document.createElement('div');
+            mobilePdf.className = 'design-pdf-link';
+            mobilePdf.style.marginTop = '16px';
+            mobilePdf.textContent = 'Click here to view slide deck';
+            mobilePdf.onclick = () => window.open(project.pdfUrl, '_blank');
+            mobileBottom.appendChild(mobilePdf);
+
+            page.appendChild(mobileBottom);
 
             document.body.insertBefore(page, document.querySelector('.footer'));
         }
 
-        // NEW: Navigate to adjacent project
         function navigateToAdjacentProject(currentId, direction) {
             const currentIndex = designProjects.findIndex(p => p.id === currentId);
             let nextIndex = currentIndex + direction;
@@ -2197,19 +2250,11 @@
             openDesignProject(designProjects[nextIndex].id);
         }
 
-function openDesignProject(projectId, fromTag = null) {
+        function openDesignProject(projectId, fromTag = null) {
             currentProjectId = projectId;
-            previousPage = `design-project${projectId}`;
+            previousPage = `design-${projectId}`;
             navigate(`design-${projectId}`);
 
-            // Update mobile back button to go back to design overview
-            const backBtn = document.getElementById('mobile-back-btn');
-            if (backBtn) {
-                backBtn.onclick = () => navigate('design');
-                backBtn.style.display = isMobile() ? 'block' : 'none';
-            }
-            
-            // Update active state in design navigation
             setTimeout(() => {
                 document.querySelectorAll('.design-nav-item').forEach(item => {
                     item.classList.remove('active');
@@ -2220,13 +2265,13 @@ function openDesignProject(projectId, fromTag = null) {
                 });
             }, 50);
         }
-      function filterByTag(tag) {
+
+        function filterByTag(tag) {
             currentDesignFilter = tag;
             previousPage = `design-${currentProjectId}`;
             navigate(`design-tag-${tag}`);
         }
 
-        // NEW: Navigate to landing and reset design
         function navigateToLanding() {
             currentDesignFilter = 'all';
             currentProjectId = null;
@@ -2283,7 +2328,7 @@ function openDesignProject(projectId, fromTag = null) {
             });
 
             const isLanding = page === 'landing';
-            const isDesignDetail = page.startsWith('design-project') || (page.startsWith('design-') && page !== 'design');
+            const isDesignDetail = page.startsWith('design-') && page !== 'design' && !page.startsWith('design-tag-');
 
             // Desktop nav bar
             const navBar = document.getElementById('nav-bar');
@@ -2294,26 +2339,58 @@ function openDesignProject(projectId, fromTag = null) {
             }
             document.body.classList.remove('no-scroll');
 
-            // Mobile UI elements
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Mobile UI
             if (mobile) {
                 const mobileHeader = document.getElementById('mobile-header');
-                const mobileNavCircles = document.getElementById('mobile-nav-circles');
-                const mobileBackBtn = document.getElementById('mobile-back-btn');
+                const mobileCloseX = document.getElementById('mobile-close-x');
 
-                mobileHeader.style.display = isLanding ? 'none' : 'flex';
+                // Header: hidden on landing, shown on all other pages
+                if (isLanding) {
+                    mobileHeader.style.display = 'none';
+                } else {
+                    mobileHeader.style.display = 'flex';
+                }
                 mobileHeader.classList.remove('hide-on-scroll');
                 lastScrollY = 0;
 
-                // Show overlapping circles on inner pages (not landing, not design detail)
-                const showCircles = !isLanding && !isDesignDetail && page !== 'mobile-ceramics-all';
-                mobileNavCircles.style.display = showCircles ? 'flex' : 'none';
+                // X close button: only on design detail pages
+                if (isDesignDetail) {
+                    mobileCloseX.style.display = 'block';
+                } else {
+                    mobileCloseX.style.display = 'none';
+                }
 
-                // Show back button only on design detail pages
-                mobileBackBtn.style.display = isDesignDetail ? 'block' : 'none';
+                // Bottom nav: only on design detail pages (shown on scroll to bottom)
+                if (isDesignDetail) {
+                    showBottomNav('design-detail');
+                    // Show mobile-only layout sections
+                    const pageEl = document.getElementById(page);
+                    if (pageEl) {
+                        // Show mobile bottom section, hide desktop images in detail view
+                        const mobileBottom = pageEl.querySelector('.mobile-design-bottom');
+                        if (mobileBottom) mobileBottom.style.display = 'block';
+                        // Hide desktop info tags/pdf (they're in the info panel which is hidden on mobile)
+                        const desktopInfo = pageEl.querySelector('.design-detail-info');
+                        if (desktopInfo) {
+                            // On mobile, show only title and description in info div (hide tags/pdf there)
+                            const tags = desktopInfo.querySelector('.design-tags');
+                            const pdf = desktopInfo.querySelector('.design-pdf-link');
+                            if (tags) tags.style.display = 'none';
+                            if (pdf) pdf.style.display = 'none';
+                        }
+                        // Hide desktop images div (mobile carousel used instead)
+                        const desktopImages = pageEl.querySelector('.design-detail-images');
+                        if (desktopImages) desktopImages.style.display = 'none';
+                    }
+                } else {
+                    hideBottomNav();
+                    // On non-detail pages, restore desktop elements if user switches back
+                    // (reset happens naturally since we're navigating away)
+                }
             }
-
-            // Scroll to top
-            window.scrollTo(0, 0);
         }
 
         document.body.classList.remove('no-scroll');
@@ -2336,6 +2413,7 @@ function openDesignProject(projectId, fromTag = null) {
             const title = document.getElementById('modal-title');
             const details = document.getElementById('modal-details');
             const carousel = document.getElementById('carousel');
+            const modalMobileCloseX = document.getElementById('modal-mobile-close-x');
 
             currentModalData = type === 'ceramics' ? [...ceramicsSeries1Data, ...ceramicsSeries2Data, ...ceramicsSeries3Data] :
                                type === 'printmaking' ? printmakingData : [];
@@ -2345,30 +2423,35 @@ function openDesignProject(projectId, fromTag = null) {
 
             image.src = item.images[0];
             image.classList.remove('zoomed');
-            title.textContent = item.title;
+            title.textContent = item.title || '';
 
-            let detailsText = '';
-            if (item.dimensions) detailsText += item.dimensions;
-            if (item.clay) detailsText += '\n' + item.clay;
-            if (item.date) detailsText += '\n' + item.date;
-            details.textContent = detailsText;
+            // Build details — only show lines that have content, no empty gaps
+            const detailParts = [];
+            if (item.dimensions && item.dimensions.trim()) detailParts.push(item.dimensions.trim());
+            if (item.clay && item.clay.trim()) detailParts.push(item.clay.trim());
+            if (item.date && item.date.trim()) detailParts.push(item.date.trim());
+            details.textContent = detailParts.join('\n');
 
             carousel.innerHTML = '';
 
             if (isMobile()) {
-                // Mobile: show all images stacked vertically in carousel, hide main image
+                // Mobile: hide main image, show all images stacked in carousel
                 image.style.display = 'none';
                 item.images.forEach(imgSrc => {
                     const img = document.createElement('img');
                     img.src = imgSrc;
                     carousel.appendChild(img);
                 });
-                // Show circle nav buttons
-                document.getElementById('modal-circle-prev').style.display = 'flex';
-                document.getElementById('modal-circle-next').style.display = 'flex';
+                // Show modal X close button
+                modalMobileCloseX.style.display = 'block';
+                // Set bottom nav context
+                showBottomNav('modal');
+                // Update bottom nav labels
+                document.getElementById('mobile-nav-prev').textContent = '← Previous';
+                document.getElementById('mobile-nav-next').textContent = 'Next →';
             } else {
                 image.style.display = '';
-                // Desktop: carousel thumbnails for ceramics
+                modalMobileCloseX.style.display = 'none';
                 if (type === 'ceramics' && item.images.length > 1) {
                     item.images.forEach((img, index) => {
                         const thumb = document.createElement('img');
@@ -2383,8 +2466,6 @@ function openDesignProject(projectId, fromTag = null) {
                         carousel.appendChild(thumb);
                     });
                 }
-                document.getElementById('modal-circle-prev').style.display = 'none';
-                document.getElementById('modal-circle-next').style.display = 'none';
             }
 
             image.onclick = (e) => {
@@ -2395,6 +2476,12 @@ function openDesignProject(projectId, fromTag = null) {
             };
 
             modal.classList.add('active');
+
+            // On mobile, scroll to top of modal and check if bottom nav should show
+            if (isMobile()) {
+                window.scrollTo(0, 0);
+                setTimeout(checkBottomNavVisibility, 100);
+            }
         }
 
         function navigateModal(direction) {
@@ -2411,12 +2498,13 @@ function openDesignProject(projectId, fromTag = null) {
 
         function closeModal() {
             document.getElementById('modal').classList.remove('active');
+            document.getElementById('modal-mobile-close-x').style.display = 'none';
+            hideBottomNav();
         }
 
         // Initialize galleries
         ceramicsSeries1Data.forEach(item => {
             document.getElementById('Dots + Fur-grid').appendChild(createGalleryItem(item, 'ceramics'));
-            // Also add to mobile unified page
             const mobGrid = document.getElementById('mob-dots-fur-grid');
             if (mobGrid) mobGrid.appendChild(createGalleryItem(item, 'ceramics'));
         });
@@ -2440,9 +2528,9 @@ function openDesignProject(projectId, fromTag = null) {
         // Initialize design section
         initializeDesign();
 
-        // Close modal on background click
+        // Close modal on background click (desktop only)
         document.getElementById('modal').addEventListener('click', (e) => {
-            if (e.target.id === 'modal') closeModal();
+            if (!isMobile() && e.target.id === 'modal') closeModal();
         });
 
         // Copy email to clipboard
