@@ -998,6 +998,135 @@
         /* ============================================
            MOBILE STYLES (max-width: 768px)
            ============================================ */
+
+        /* Mobile slide-in menu panel */
+        .mobile-menu-panel {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 75vw;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            z-index: 500;
+            padding: 60px 30px 40px;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.12);
+            transform: translateX(-100%);
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            flex-direction: column;
+            gap: 0;
+        }
+        .mobile-menu-panel.open {
+            transform: translateX(0);
+        }
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 499;
+            opacity: 0;
+            transition: opacity 0.35s;
+        }
+        .mobile-menu-overlay.open {
+            opacity: 1;
+        }
+        .mobile-menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 0;
+            font-size: 16px;
+            font-weight: 300;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .mobile-menu-item:last-child { border-bottom: none; }
+        .mobile-menu-item:active { opacity: 0.5; }
+        .mobile-menu-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 22px;
+            background: none; border: none;
+            cursor: pointer; line-height: 1;
+        }
+
+        /* Mobile header (name + hamburger on inner pages) */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 56px;
+            background: white;
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid #f0f0f0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .mobile-header.hide-on-scroll {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        .mobile-header-name {
+            font-size: 16px;
+            font-weight: 300;
+            cursor: pointer;
+        }
+        .mobile-hamburger {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none; border: none;
+            cursor: pointer;
+            display: flex; flex-direction: column;
+            gap: 5px; padding: 4px;
+        }
+        .mobile-hamburger span {
+            display: block; width: 22px; height: 1.5px; background: black;
+        }
+
+        /* Mobile back button for design detail */
+        .mobile-back-btn {
+            display: none;
+            position: fixed;
+            top: 68px;
+            left: 16px;
+            font-size: 12px;
+            text-decoration: underline;
+            cursor: pointer;
+            z-index: 150;
+            background: white;
+            padding: 4px 0;
+        }
+
+        /* Mobile modal circle nav buttons */
+        .modal-circle-nav {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            border: 2px solid black;
+            background: white;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            z-index: 1100;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-circle-prev { left: 24px; }
+        .modal-circle-next { right: 24px; }
+
         @media (max-width: 768px) {
 
             /* Disable custom cursors on mobile */
@@ -1010,12 +1139,16 @@
             .cv-circle, .nav-cv, .download-btn {
                 cursor: auto !important;
             }
-            a, button, [onclick],
-            .circle, .side-circle, .nav-circle {
-                cursor: pointer !important;
-            }
+            a, button, [onclick], .circle, .side-circle, .nav-circle,
+            .mobile-menu-item, .mobile-hamburger { cursor: pointer !important; }
 
-            /* --- Landing page layout --- */
+            /* Hide desktop nav, show mobile header */
+            .nav-bar { display: none !important; }
+            .mobile-menu-panel { display: flex; }
+            .mobile-header { display: flex; }
+            .mobile-back-btn { display: block; }
+
+            /* ---- LANDING PAGE ---- */
             .landing {
                 flex-direction: column;
                 align-items: center;
@@ -1024,20 +1157,15 @@
                 position: relative;
                 overflow: hidden;
             }
-
-            /* Name stays at top, centred */
             .landing-title {
                 position: relative;
-                top: auto;
-                left: auto;
+                top: auto; left: auto;
                 transform: none;
                 width: 100%;
                 text-align: center;
                 padding: 28px 20px 0;
                 font-size: 18px;
             }
-
-            /* Venn wrapper: centred in the middle of the screen */
             .venn-wrapper {
                 padding-top: 0;
                 flex: 1;
@@ -1045,198 +1173,214 @@
                 align-items: center;
                 justify-content: center;
                 width: 100%;
-                /* leave room for name (≈60px) and bottom circles (≈160px) */
                 height: calc(100vh - 60px - 160px);
             }
+            /* +30% from previous 260px */
+            .venn-container { width: 338px; height: 338px; }
+            /* +30% from previous 130px */
+            .circle { width: 169px; height: 169px; font-size: 13px; }
+            .ceramics { top: 8px; left: 18px; }
+            .printmaking { top: 8px; right: 18px; }
+            .design { top: 123px; left: 50%; transform: translateX(-50%); }
+            .design:hover { transform: translateX(-50%) scale(1.3); }
 
-            /* Shrink the venn container */
-            .venn-container {
-                width: 260px;
-                height: 260px;
-            }
-
-            /* Scale down each main circle */
-            .circle {
-                width: 130px;
-                height: 130px;
-                font-size: 12px;
-            }
-
-            /* Reposition the three circles proportionally within the smaller container */
-            .ceramics {
-                top: 6px;
-                left: 15px;
-            }
-
-            .printmaking {
-                top: 6px;
-                right: 15px;
-            }
-
-            .design {
-                top: 95px;
-                left: 50%;
-                transform: translateX(-50%);
-            }
-
-            .design:hover {
-                transform: translateX(-50%) scale(1.3);
-            }
-
-            /* --- Side circles: fixed bottom-left and bottom-right --- */
+            /* Side circles bottom-left / bottom-right */
             .side-circles {
                 position: fixed;
-                bottom: 30px;
-                left: 0;
-                right: 0;
-                top: auto;
+                bottom: 30px; left: 0; right: 0; top: auto;
                 transform: none;
                 flex-direction: row;
                 justify-content: space-between;
-                padding: 0 30px;
-                gap: 0;
-                z-index: 20;
+                padding: 0 30px; gap: 0; z-index: 20;
             }
+            .side-circle { width: 80px; height: 80px; font-size: 12px; }
 
-            /* CV bottom-right, About bottom-left (order kept by DOM) */
-            .side-circle {
-                width: 80px;
-                height: 80px;
-                font-size: 12px;
-            }
-
-            /* --- Nav bar mobile tweaks --- */
-            .nav-bar {
-                padding: 0 16px;
-                height: 56px;
-            }
-
-            .nav-left {
-                left: 16px;
-                gap: 10px;
-            }
-
-            .nav-right {
-                right: 16px;
-                gap: 10px;
-            }
-
-            .nav-name {
-                font-size: 15px;
-            }
-
-            /* --- About page --- */
-            .about {
-                padding: 80px 20px 100px;
-                max-width: 100%;
-            }
-
-            .about.visible {
-                flex-direction: column !important;
-            }
-
-            .about-image {
-                width: 100%;
-                height: auto;
-                max-width: 300px;
-                margin: 0 auto;
-            }
-
-            /* --- Gallery tweaks --- */
-            .gallery-grid-printmaking,
-            .gallery-grid-ceramics {
-                column-count: 2;
-                max-width: 100%;
-                padding: 0 12px;
-            }
-
-            .ceramics-series {
-                flex-direction: column;
-                padding: 70px 12px 80px;
-            }
-
-            .ceramics-series-nav {
-                position: relative;
-                left: auto;
-                top: auto;
-                width: 100%;
+            /* Right-side overlapping nav circles (shown on inner pages) */
+            .mobile-nav-circles {
+                position: fixed;
+                right: -28px;
+                top: 50%;
+                transform: translateY(-50%);
                 display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-bottom: 20px;
-            }
-
-            .ceramics-series-nav-item {
-                padding: 4px 10px;
-                border: 1px solid #ccc;
-                border-radius: 20px;
-                font-size: 12px;
-            }
-
-            .ceramics-series-content {
-                width: 100%;
-                max-width: 100%;
-                margin-left: 0;
-            }
-
-            /* --- Design page --- */
-            .design-view {
                 flex-direction: column;
-                padding: 70px 12px 80px;
+                gap: -20px;
+                z-index: 300;
             }
+            .mobile-nav-circle {
+                width: 70px; height: 70px;
+                border-radius: 50%;
+                opacity: 0.5;
+                display: flex; align-items: center; justify-content: center;
+                font-size: 10px; font-weight: 500;
+                cursor: pointer;
+                margin-bottom: -28px; /* 80% overlap */
+                transition: opacity 0.2s;
+                color: #333;
+            }
+            .mobile-nav-circle:last-child { margin-bottom: 0; }
+            .mobile-nav-circle:active { opacity: 0.8; }
+            .mnc-ceramics  { background: rgba(0,174,239,0.5); }
+            .mnc-printmaking { background: rgba(236,0,140,0.5); }
+            .mnc-design    { background: rgba(255,242,0,0.5); }
+            .mnc-about     { background: rgba(255,255,255,0.5); border: 2px solid black; }
+            .mnc-cv        { background: rgba(0,0,0,0.5); color: white; }
 
-            .design-nav {
-                position: relative;
-                left: auto;
-                top: auto;
+            /* ---- ABOUT PAGE ---- */
+            .about { padding: 72px 20px 100px; max-width: 100%; }
+            .about.visible { flex-direction: column !important; }
+            .about-image { width: 100%; height: auto; max-width: 300px; margin: 0 auto; }
+
+            /* ---- CERAMICS: single scrolling page ---- */
+            .ceramics-series { flex-direction: column; padding: 72px 16px 100px; }
+            .ceramics-series-nav { display: none; } /* hidden — all in one page on mobile */
+            .ceramics-series-content { width: 100%; max-width: 100%; margin-left: 0; }
+            .gallery-grid-ceramics { column-count: 2; column-gap: 12px; padding: 0; }
+            .mobile-ceramics-section-title {
+                display: block;
+                font-size: 13px; font-weight: 500;
+                padding: 20px 0 10px;
+                letter-spacing: 0.04em;
+                color: rgba(0,174,239,1);
+                break-before: column;
                 width: 100%;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-bottom: 20px;
+                column-span: all;
             }
 
-            .design-content {
-                margin-left: 0;
-                width: 100%;
+            /* ---- PRINTMAKING ---- */
+            .gallery { padding: 72px 0 80px; }
+            .gallery-grid-printmaking {
+                column-count: 2; column-gap: 12px;
+                max-width: 100%; padding: 0 16px;
             }
 
-            .design-grid {
-                column-count: 2;
-            }
-
-            /* --- CV page --- */
-            .cv-series {
+            /* ---- MODAL (ceramics + printmaking) ---- */
+            .modal {
+                background: white;
                 flex-direction: column;
-                padding: 70px 12px 80px;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding: 0;
+                overflow-y: auto;
             }
-
-            .cv-series-nav {
-                position: relative;
-                left: auto;
-                top: auto;
-                width: 100%;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 8px;
-                margin-bottom: 20px;
+            .modal-close {
+                color: black;
+                font-size: 22px;
+                top: 14px; right: 16px;
+                font-weight: 300;
             }
+            /* Replace "Close" text with × */
+            .modal-close { font-size: 0; }
+            .modal-close::after { content: '×'; font-size: 28px; color: black; }
 
-            .cv-series-content {
-                width: 100%;
-                max-width: 100%;
-                margin-left: 0;
-            }
+            /* Desktop side arrows hidden on mobile */
+            .modal-nav { display: none; }
 
-            /* --- Modal --- */
             .modal-content {
-                width: 95vw;
-                padding: 16px;
+                width: 100%;
+                padding: 56px 16px 120px;
+                align-items: flex-start;
+                max-height: none;
+                padding-top: 0;
+            }
+            /* Description anchored top-left */
+            .modal-info {
+                text-align: left;
+                color: black;
+                margin: 0 0 16px 0;
+                max-width: 100%;
+                order: -1;
+                padding: 16px 0 0 0;
+            }
+            .modal-title { color: black; font-size: 14px; }
+            .modal-details { color: #555; font-size: 12px; }
+
+            /* Images stacked vertically, full width */
+            #modal-image {
+                max-width: 100%; max-height: none;
+                width: 100%; height: auto;
+                margin-bottom: 12px;
+                cursor: default !important;
+            }
+            /* Carousel becomes vertical image scroll */
+            .carousel {
+                flex-direction: column;
+                gap: 12px;
+                width: 100%;
+                margin-top: 0;
+            }
+            .carousel img {
+                width: 100%; height: auto;
+                object-fit: contain;
+                opacity: 1;
             }
 
-            .modal-image {
-                max-height: 60vh;
+            /* Circle nav buttons at bottom of modal */
+            .modal-circle-nav { display: flex; }
+
+            /* ---- DESIGN OVERVIEW: single scroll ---- */
+            .design-overview {
+                flex-direction: column;
+                padding: 72px 16px 80px;
             }
+            .design-nav { display: none; } /* hide side project list */
+            .design-content { margin-left: 0; width: 100%; }
+            .design-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+            }
+            .design-project-card img {
+                width: 100%; height: auto;
+                aspect-ratio: auto;
+            }
+            .design-project-name { padding: 8px 0 20px; font-size: 14px; }
+
+            /* ---- DESIGN DETAIL: info on top, images below ---- */
+            .design-detail {
+                flex-direction: column;
+                padding: 100px 16px 140px 16px;
+                gap: 0;
+            }
+            /* Nav panel on design detail hidden */
+            .design-detail .design-nav { display: none !important; }
+            .design-detail-info {
+                position: relative;
+                top: auto;
+                width: 100%;
+                border-left: none;
+                padding-left: 0;
+                margin-bottom: 20px;
+                overflow-y: visible;
+            }
+            .design-detail-images {
+                max-height: none;
+                overflow-y: visible;
+                padding-right: 0;
+                width: 100%;
+            }
+            /* Hide desktop prev/next text buttons in detail */
+            .design-project-nav { display: none; }
+            /* Scroll circle indicator hidden on mobile */
+            .scroll-circle { display: none; }
+
+            /* ---- CV ---- */
+            .cv-series { flex-direction: column; padding: 72px 16px 80px; }
+            .cv-series-nav {
+                position: relative; left: auto; top: auto;
+                width: 100%; display: flex; flex-wrap: wrap;
+                gap: 8px; margin-bottom: 20px;
+            }
+            .cv-series-nav-item {
+                padding: 4px 12px; border: 1px solid #ccc;
+                border-radius: 20px; font-size: 12px;
+            }
+            .cv-series-content { width: 100%; max-width: 100%; margin-left: 0; }
+
+            /* ---- TAG FILTER ---- */
+            .design-tag-view { flex-direction: column; padding: 72px 16px 80px; }
+            .design-tag-header { position: relative; left: auto; top: auto; margin-bottom: 12px; }
+            .design-back-button { position: relative; left: auto; top: auto; margin-bottom: 20px; display: block; }
+            .design-tag-content { margin-left: 0; width: 100%; }
         }
 
         .landing.visible ~ .footer {
@@ -1268,7 +1412,7 @@
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
+    <!-- Navigation Bar (desktop) -->
     <nav class="nav-bar" id="nav-bar">
         <div class="nav-left">
             <div class="nav-circle nav-ceramics" data-label="Ceramics" onclick="navigate('ceramics')"></div>
@@ -1281,6 +1425,56 @@
             <div class="nav-circle nav-cv" data-label="CV" onclick="navigate('cv')"></div>
         </div>
     </nav>
+
+    <!-- Mobile Header (name + hamburger) -->
+    <header class="mobile-header" id="mobile-header">
+        <span class="mobile-header-name" onclick="navigateToLanding()">Marija Astrauskaite</span>
+        <button class="mobile-hamburger" id="mobile-hamburger" onclick="openMobileMenu()" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </header>
+
+    <!-- Mobile slide-in menu -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+    <div class="mobile-menu-panel" id="mobile-menu-panel">
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">×</button>
+        <div class="mobile-menu-item" onclick="closeMobileMenu();navigate('ceramics')">
+            Ceramics
+            <span class="mobile-menu-dot" style="background:rgba(0,174,239,0.8)"></span>
+        </div>
+        <div class="mobile-menu-item" onclick="closeMobileMenu();navigate('printmaking')">
+            Printmaking
+            <span class="mobile-menu-dot" style="background:rgba(236,0,140,0.8)"></span>
+        </div>
+        <div class="mobile-menu-item" onclick="closeMobileMenu();navigate('design')">
+            Design
+            <span class="mobile-menu-dot" style="background:rgba(255,242,0,0.9);border:1px solid #ccc"></span>
+        </div>
+        <div class="mobile-menu-item" onclick="closeMobileMenu();navigate('about')">
+            About Me
+            <span class="mobile-menu-dot" style="background:white;border:2px solid black"></span>
+        </div>
+        <div class="mobile-menu-item" onclick="closeMobileMenu();navigate('cv')">
+            CV
+            <span class="mobile-menu-dot" style="background:black"></span>
+        </div>
+    </div>
+
+    <!-- Mobile right-side overlapping nav circles (shown on inner pages) -->
+    <div class="mobile-nav-circles" id="mobile-nav-circles" style="display:none">
+        <div class="mobile-nav-circle mnc-ceramics"  onclick="navigate('ceramics')">Ceramics</div>
+        <div class="mobile-nav-circle mnc-printmaking" onclick="navigate('printmaking')">Printing</div>
+        <div class="mobile-nav-circle mnc-design"    onclick="navigate('design')">Design</div>
+        <div class="mobile-nav-circle mnc-about"     onclick="navigate('about')">About</div>
+        <div class="mobile-nav-circle mnc-cv"        onclick="navigate('cv')">CV</div>
+    </div>
+
+    <!-- Mobile back button for design detail -->
+    <div class="mobile-back-btn" id="mobile-back-btn" style="display:none" onclick="navigate('design')">← Back</div>
+
+    <!-- Mobile modal circle nav buttons -->
+    <button class="modal-circle-nav modal-circle-prev" id="modal-circle-prev" onclick="navigateModal(-1)">Back</button>
+    <button class="modal-circle-nav modal-circle-next" id="modal-circle-next" onclick="navigateModal(1)">Next</button>
 
     <!-- Landing Page -->
     <div class="page landing visible" id="landing">
@@ -1437,6 +1631,18 @@
         </div>
     </div>
 
+    <!-- Mobile Ceramics: single unified scroll page -->
+    <div class="page hidden" id="mobile-ceramics-all">
+        <div style="padding: 72px 16px 120px;">
+            <h2 class="mobile-ceramics-section-title">Dots + Fur</h2>
+            <div class="gallery-grid-ceramics" id="mob-dots-fur-grid"></div>
+            <h2 class="mobile-ceramics-section-title">Bugs</h2>
+            <div class="gallery-grid-ceramics" id="mob-bugs-grid"></div>
+            <h2 class="mobile-ceramics-section-title">More</h2>
+            <div class="gallery-grid-ceramics" id="mob-more-grid"></div>
+        </div>
+    </div>
+
     <!-- Printmaking Gallery -->
     <div class="page gallery hidden" id="printmaking">
         <div class="gallery-grid-printmaking" id="printmaking-grid"></div>
@@ -1456,16 +1662,16 @@
 
     <!-- Modal -->
     <div class="modal" id="modal">
-        <button class="modal-close" onclick="closeModal()">Close</button>
-        <button class="modal-nav modal-prev" onclick="navigateModal(-1)">Back</button>
-        <button class="modal-nav modal-next" onclick="navigateModal(1)">Next</button>
+        <button class="modal-close" onclick="closeModal()">×</button>
+        <button class="modal-nav modal-prev" onclick="navigateModal(-1)">←</button>
+        <button class="modal-nav modal-next" onclick="navigateModal(1)">→</button>
         <div class="modal-content">
-            <img id="modal-image" src="" alt="">
-            <div class="carousel" id="carousel"></div>
             <div class="modal-info">
                 <div class="modal-title" id="modal-title"></div>
                 <div class="modal-details" id="modal-details"></div>
             </div>
+            <img id="modal-image" src="" alt="">
+            <div class="carousel" id="carousel"></div>
         </div>
     </div>
 
@@ -1492,6 +1698,35 @@
         <div class="footer-text">Chicago, IL</div>
     </footer>
     <script>
+        const isMobile = () => window.innerWidth <= 768;
+
+        // ---- Mobile menu ----
+        function openMobileMenu() {
+            document.getElementById('mobile-menu-panel').classList.add('open');
+            document.getElementById('mobile-menu-overlay').style.display = 'block';
+            requestAnimationFrame(() => document.getElementById('mobile-menu-overlay').classList.add('open'));
+        }
+        function closeMobileMenu() {
+            document.getElementById('mobile-menu-panel').classList.remove('open');
+            const ov = document.getElementById('mobile-menu-overlay');
+            ov.classList.remove('open');
+            setTimeout(() => { ov.style.display = 'none'; }, 350);
+        }
+
+        // ---- Scroll-hide header ----
+        let lastScrollY = 0;
+        window.addEventListener('scroll', () => {
+            if (!isMobile()) return;
+            const hdr = document.getElementById('mobile-header');
+            const y = window.scrollY;
+            if (y > lastScrollY && y > 60) {
+                hdr.classList.add('hide-on-scroll');
+            } else {
+                hdr.classList.remove('hide-on-scroll');
+            }
+            lastScrollY = y;
+        }, { passive: true });
+
         // Ceramics data
         const ceramicsSeries1Data = [
                     { title: "Short Fur Jar", date: "2022", clay: "Porcelain", images: ["https://imgur.com/eFY5cJo.jpeg", "https://imgur.com/r9S28na.jpeg", "https://imgur.com/7Qg9e8E.jpeg", "https://imgur.com/Yx5ZSI7.jpeg"] },
@@ -1966,6 +2201,13 @@ function openDesignProject(projectId, fromTag = null) {
             currentProjectId = projectId;
             previousPage = `design-project${projectId}`;
             navigate(`design-${projectId}`);
+
+            // Update mobile back button to go back to design overview
+            const backBtn = document.getElementById('mobile-back-btn');
+            if (backBtn) {
+                backBtn.onclick = () => navigate('design');
+                backBtn.style.display = isMobile() ? 'block' : 'none';
+            }
             
             // Update active state in design navigation
             setTimeout(() => {
@@ -1992,9 +2234,11 @@ function openDesignProject(projectId, fromTag = null) {
         }
 
         function navigate(page) {
-            // Auto-redirect ceramics menu to first series
+            const mobile = isMobile();
+
+            // On mobile, ceramics goes to unified single page
             if (page === 'ceramics') {
-                page = 'Dots + Fur';
+                page = mobile ? 'mobile-ceramics-all' : 'Dots + Fur';
             }
 
             // Auto-redirect CV menu to first series
@@ -2038,14 +2282,34 @@ function openDesignProject(projectId, fromTag = null) {
                 }
             });
 
-            // Show/hide nav bar
+            const isLanding = page === 'landing';
+            const isDesignDetail = page.startsWith('design-project') || (page.startsWith('design-') && page !== 'design');
+
+            // Desktop nav bar
             const navBar = document.getElementById('nav-bar');
-            if (page === 'landing') {
+            if (isLanding) {
                 navBar.classList.remove('active');
-                document.body.classList.remove('no-scroll');
             } else {
                 navBar.classList.add('active');
-                document.body.classList.remove('no-scroll');
+            }
+            document.body.classList.remove('no-scroll');
+
+            // Mobile UI elements
+            if (mobile) {
+                const mobileHeader = document.getElementById('mobile-header');
+                const mobileNavCircles = document.getElementById('mobile-nav-circles');
+                const mobileBackBtn = document.getElementById('mobile-back-btn');
+
+                mobileHeader.style.display = isLanding ? 'none' : 'flex';
+                mobileHeader.classList.remove('hide-on-scroll');
+                lastScrollY = 0;
+
+                // Show overlapping circles on inner pages (not landing, not design detail)
+                const showCircles = !isLanding && !isDesignDetail && page !== 'mobile-ceramics-all';
+                mobileNavCircles.style.display = showCircles ? 'flex' : 'none';
+
+                // Show back button only on design detail pages
+                mobileBackBtn.style.display = isDesignDetail ? 'block' : 'none';
             }
 
             // Scroll to top
@@ -2091,24 +2355,43 @@ function openDesignProject(projectId, fromTag = null) {
 
             carousel.innerHTML = '';
 
-            if (type === 'ceramics' && item.images.length > 1) {
-                item.images.forEach((img, index) => {
-                    const thumb = document.createElement('img');
-                    thumb.src = img;
-                    thumb.className = index === 0 ? 'active' : '';
-                    thumb.onclick = () => {
-                        image.src = img;
-                        image.classList.remove('zoomed');
-                        carousel.querySelectorAll('img').forEach(t => t.classList.remove('active'));
-                        thumb.classList.add('active');
-                    };
-                    carousel.appendChild(thumb);
+            if (isMobile()) {
+                // Mobile: show all images stacked vertically in carousel, hide main image
+                image.style.display = 'none';
+                item.images.forEach(imgSrc => {
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    carousel.appendChild(img);
                 });
+                // Show circle nav buttons
+                document.getElementById('modal-circle-prev').style.display = 'flex';
+                document.getElementById('modal-circle-next').style.display = 'flex';
+            } else {
+                image.style.display = '';
+                // Desktop: carousel thumbnails for ceramics
+                if (type === 'ceramics' && item.images.length > 1) {
+                    item.images.forEach((img, index) => {
+                        const thumb = document.createElement('img');
+                        thumb.src = img;
+                        thumb.className = index === 0 ? 'active' : '';
+                        thumb.onclick = () => {
+                            image.src = img;
+                            image.classList.remove('zoomed');
+                            carousel.querySelectorAll('img').forEach(t => t.classList.remove('active'));
+                            thumb.classList.add('active');
+                        };
+                        carousel.appendChild(thumb);
+                    });
+                }
+                document.getElementById('modal-circle-prev').style.display = 'none';
+                document.getElementById('modal-circle-next').style.display = 'none';
             }
 
             image.onclick = (e) => {
-                e.stopPropagation();
-                image.classList.toggle('zoomed');
+                if (!isMobile()) {
+                    e.stopPropagation();
+                    image.classList.toggle('zoomed');
+                }
             };
 
             modal.classList.add('active');
@@ -2133,14 +2416,21 @@ function openDesignProject(projectId, fromTag = null) {
         // Initialize galleries
         ceramicsSeries1Data.forEach(item => {
             document.getElementById('Dots + Fur-grid').appendChild(createGalleryItem(item, 'ceramics'));
+            // Also add to mobile unified page
+            const mobGrid = document.getElementById('mob-dots-fur-grid');
+            if (mobGrid) mobGrid.appendChild(createGalleryItem(item, 'ceramics'));
         });
 
         ceramicsSeries2Data.forEach(item => {
             document.getElementById('Bugs-grid').appendChild(createGalleryItem(item, 'ceramics'));
+            const mobGrid = document.getElementById('mob-bugs-grid');
+            if (mobGrid) mobGrid.appendChild(createGalleryItem(item, 'ceramics'));
         });
 
         ceramicsSeries3Data.forEach(item => {
             document.getElementById('More-grid').appendChild(createGalleryItem(item, 'ceramics'));
+            const mobGrid = document.getElementById('mob-more-grid');
+            if (mobGrid) mobGrid.appendChild(createGalleryItem(item, 'ceramics'));
         });
 
         printmakingData.forEach(item => {
